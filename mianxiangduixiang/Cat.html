@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+//    function Cat() {
+//        this.age=1
+//    }
+//Cat.prototype.agee=3.1;
+//        Cat.prototype.show=function () {
+//            console.log(this.agee);
+//
+//    }
+//    var blackcat=new Cat();
+//    blackcat.age=10;
+//    blackcat.show();
+
+
+    function Cat(option) {
+        console.log("this: "+this)
+        console.log("typeof: "+typeof (this))
+
+        this.age=option.age
+        this.name=option.name
+    }
+    Cat.prototype.show=function () {
+        console.log(this.age+this.name)
+        console.log(this)
+    }
+
+    var whitecat=new Cat({
+        age:0.1,
+        name:'mimi'
+    })
+    whitecat.show();
+
+//function Cat(option) {
+//    this._init(option);
+//
+//}
+//Cat.prototype={
+//    _init:function (option) {
+//        this.name=option.name;
+//        this.age=option.age;
+//    },
+//    show:function () {
+//        console.log(this.age)
+//    }
+//
+//}
+//var cat=new Cat({
+//    age:9,
+//    name:'sb'
+//})
+//    cat.show();
+
+//    function Dog(duixiang) {
+//        this._init(duixiang);
+//    }
+//    Dog.prototype={
+//        _init:function (duixiang) {
+//            this.name=duixiang.name;
+//            this.age=duixiang.age;
+//        },
+//        show:function () {
+//            console.log(this.name)
+//        },
+//        howold:function () {
+//            alert(this.age)
+//
+//        }
+//    }
+//     var dogg=new Dog({
+//         age:999,
+//         name:"a fu"
+//     })
+//    dogg.howold();
+//dogg.show();
+
+//function add(a,b) {
+//    console.log(typeof (this))
+//    return a+b;
+//}
+//
+//add(1,2)
+
+
+
+</script>

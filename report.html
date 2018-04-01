@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--http://v.juhe.cn/weather/index?format=2&cityname=%E8%8B%8F%E5%B7%9E&key=您申请的KEY-->
+    <!--AppKey：786f27b0edf8d15c9f95a4f9351788a2-->
+    <!--http://v.juhe.cn/weather/index?format=2&key=786f27b0edf8d15c9f95a4f9351788a2&cityname=%E8%8B%8F%E5%B7%9E-->
+
+    <title>全国天气预报</title>
+    <script src="lib/jquery/jquery-3.2.1.js"></script>
+    <script>
+        $(function () {
+                $("#reportSearch").on("click",function () {
+//                    console.log("tianqiyubao")
+                    var reporttext= $("#reportText").val()
+                    reporttext=encodeURIComponent(reporttext);
+//                    console.log(reporttext)
+//                    type,url,dataType,success,error
+                    $.ajax({
+                        type:"get",
+                        url:"http://v.juhe.cn/weather/index?format=2&key=9d9aefe8245f5c7d08c28283e9ea1435&dtype=jsonp&callback=handle&cityname="+reporttext,
+                        dataType:"jsonp",
+                            success:function (data) {
+                            console.log(data.reason)
+                            console.log(data)
+                                console.log('changdu:'+data.result.today)
+                                for(var x in data.result.today){
+                                            console.log(data.result.today[x])
+                                }
+                                for(var i=0;i<data.result.future.length;i++){
+                                console.log(data.result.future[i].temperature)
+                                    console.log(data.result.future[i].weather)
+                                    console.log(data.result.future[i].wind)
+                                    console.log(data.result.future[i].week)
+//                                    for(var j=0;j<data.result.future.weather_id.length;j++){
+//                                        console.log(data.result.future.weather_id[j])
+//                                    }
+                                }
+
+                    },
+                    error:function(){
+                        console.log(data.reason)
+                    }
+
+
+                    })
+                })
+        })
+    </script>
+</head>
+<body>
+<input type="text" id="reportText">
+<input type="button" value="search" id="reportSearch">
+<div class="box">
+
+</div>
+
+</body>
+</html>

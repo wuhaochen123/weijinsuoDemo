@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function handleResponse(response){
+//        alert("您的IP地址是 " + response.ip);
+    console.log("您的IP地址是 " +response.ip)
+        console.log("您的IP地址是 " +response.country_name)
+        console.log("您的IP地址是 " +response.region_name)
+        console.log("您的IP地址是 " +response.ip)
+        console.log("您的IP地址是 " +response.ip)
+    }
+    var script = document.createElement("script");
+    script.src = "http://freegeoip.net/json/?callback=handleResponse";
+    document.body.insertBefore(script, document.body.firstChild);
+</script>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--AppKey：786f27b0edf8d15c9f95a4f9351788a2-->
+    <!--http://apis.juhe.cn/cook/query?key=786f27b0edf8d15c9f95a4f9351788a2&rn=10&pn=3&dtype=jsonp&callback=handle&menu=%E8%A5%BF%E7%BA%A2%E6%9F%BF-->
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <script src="lib/jquery/jquery-3.2.1.js"></script>
+    <script>
+        $(function () {
+            $("#btnSearch").on("click",function () {
+                var menu=$("#menu");
+                menu.text('正在查询中。。。')
+//                获取文本框的值
+                var textval=$("#txtSearch").val();
+//                console.log(textval)
+//                encodeURIComponent() 函数可把字符串作为 URI 组件进行编码。
+                textval=encodeURIComponent(textval);
+//              发送异步请求jsonp
+                $.ajax({
+                    type:"get",
+                    url:"http://apis.juhe.cn/cook/query?key=786f27b0edf8d15c9f95a4f9351788a2&rn=10&pn=3&dtype=jsonp&callback=handle&menu="+textval,
+                    dataType:"jsonp",
+                    success:function (data) {
+
+                        menu.text('')
+                   if (data.resultcode !=200){
+                       menu.text("没有查到")
+                   }
+
+//                   for(var i=0;i<data.result.data.length;i++){
+//                       var mydata = data.result.data[i];
+//                       var all = $('<div class="all"></div>');
+//                       menu.append(all);
+//                       var h2 = $('<h2>'+ mydata.title  +'</h2>');
+//                       all.append(h2);
+//                   }
+//                  目的：打印搜索的相关关键字所能产出的菜品。
+//                        菜品的名称为title，存放在data数组中，相关的键值为"title"
+//                        data 数组的长度：data.result.data.length
+                        for (i=0;i<data.result.data.length;i++){
+//                       获取到每个data数组中的对象
+                           var mydata= data.result.data[i];
+//                           每个data数组中的title值
+
+                            var all=$('<div class="all"></div>');
+                            menu.append(all);
+                            var h2=$('<h2>'+mydata.title+'</h2>');
+                           console.log(mydata)
+                            all.append(h2);
+                           var pintro=$('<p>'+mydata.imtro+'</p>')
+                            all.append(pintro);
+                           var imgalb=$('<img src="'+mydata.albums[0]+'" alt="">')
+                             var ingredients=$('<p>主料：'+mydata.ingredients+'</p>')
+                            all.append(ingredients);
+                            var burden=$('<p>辅料：'+mydata.burden+'</p>')
+                            all.append(burden);
+
+//                            步骤
+                            var step=$('<div class="step"></div>')
+                            for(var j=0;j<mydata.steps.length;j++){
+                               var mystep= mydata.steps[j];
+                                var stepstep=$('<p>步骤：'+mystep.step+'</p>')
+                                step.append(stepstep)
+                               var stepimg=$('<img src="'+mystep.img+'" alt="">')
+                                step.append(stepimg)
+
+
+                            }
+                            all.append(step);
+                            all.append(imgalb)
+                            var br=$('<br/><hr/>')
+                            menu.append(br)
+                        }
+
+                    },
+                    error:function () {
+                       $("#menu").text="错误";
+                    }
+
+
+                })
+            })
+        })
+    </script>
+</head>
+<body><div id="box" class="container">
+<input type="text" id="txtSearch">
+<input type="button" value="sou一下" id="btnSearch"></div>
+<div id="menu">
+
+
+
+</div>
+</body>
+</html>
